@@ -394,11 +394,15 @@ register_archives (void)
 
 gboolean force_use_unar (void)
 {
+	/*
+		[preferences.h]
+		FILE_ROLLER_SCHEMA_GENERAL = "org.gnome.FileRoller.General"
+	 	PREF_GENERAL_FORCE_USE_UNAR = "force-use-unar"
+	*/
 	GSettings *settings;
-	settings = g_settings_new ("org.gnome.FileRoller.General");
-	/*settings = g_settings_new (FILE_ROLLER_SCHEMA_GENERAL);*/
+	settings = g_settings_new (FILE_ROLLER_SCHEMA_GENERAL);
 
-	if (g_settings_get_boolean (settings, "force-use-unar") && _g_program_is_in_path ("unar") && _g_program_is_in_path ("lsar")) {
+	if (g_settings_get_boolean (settings, PREF_GENERAL_FORCE_USE_UNAR) && _g_program_is_in_path ("unar") && _g_program_is_in_path ("lsar")) {
 		g_object_unref (settings);
 		return TRUE;
 	} else {

@@ -53,6 +53,7 @@
 #define PREF_GENERAL_EDITORS              "editors"
 #define PREF_GENERAL_COMPRESSION_LEVEL    "compression-level"
 #define PREF_GENERAL_ENCRYPT_HEADER       "encrypt-header"
+#define PREF_GENERAL_FORCE_USE_UNAR       "force-use-unar"
 
 #define PREF_EXTRACT_SKIP_NEWER           "skip-newer"
 #define PREF_EXTRACT_RECREATE_FOLDERS     "recreate-folders"
