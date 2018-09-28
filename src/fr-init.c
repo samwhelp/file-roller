@@ -401,6 +401,24 @@ get_archive_type_from_mime_type (const char    *mime_type,
 	if (mime_type == NULL)
 		return 0;
 
+	if (g_ascii_strcasecmp(mime_type, "application/zip") == 0) { // only for zip
+		if (requested_capabilities == FR_ARCHIVE_CAN_READ_WRITE) { // first call
+			return 0;
+		} else if (requested_capabilities == FR_ARCHIVE_CAN_READ) { // second call
+			FrRegisteredArchive *command;
+			FrArchiveCaps        capabilities;
+			command = g_ptr_array_index (Registered_Archives, Registered_Archives->len-1); // last command -> FR_TYPE_COMMAND_UNARCHIVER
+			capabilities = fr_registered_archive_get_capabilities (command, mime_type);
+
+			debug (DEBUG_INFO, "command->type: %d ", command->type);
+
+			if (command->type == FR_TYPE_COMMAND_UNARCHIVER) { // force use unar
+				return command->type;
+			}
+
+		}
+	}
+
 	for (i = 0; i < Registered_Archives->len; i++) {
 		FrRegisteredArchive *command;
 		FrArchiveCaps        capabilities;
