@@ -394,13 +394,15 @@ register_archives (void)
 
 gboolean force_use_unar (void)
 {
-	FILE* fp = fopen("/tmp/force-use-unar", "r");
-	if (fp) {
-		// file exists, then force use unar.
-		fclose(fp);
+	GSettings *settings;
+	settings = g_settings_new ("org.gnome.FileRoller.General");
+	/*settings = g_settings_new (FILE_ROLLER_SCHEMA_GENERAL);*/
+
+	if (g_settings_get_boolean (settings, "force-use-unar") && _g_program_is_in_path ("unar") && _g_program_is_in_path ("lsar")) {
+		g_object_unref (settings);
 		return TRUE;
 	} else {
-		// file doesn't exist
+		g_object_unref (settings);
 		return FALSE;
 	}
 }
@@ -421,9 +423,9 @@ get_archive_type_from_mime_type (const char    *mime_type,
 				return 0;
 			} else if (requested_capabilities == FR_ARCHIVE_CAN_READ) { // second call
 				FrRegisteredArchive *command;
-				FrArchiveCaps        capabilities;
+				//FrArchiveCaps        capabilities;
 				command = g_ptr_array_index (Registered_Archives, Registered_Archives->len-1); // last command -> FR_TYPE_COMMAND_UNARCHIVER
-				capabilities = fr_registered_archive_get_capabilities (command, mime_type);
+				//capabilities = fr_registered_archive_get_capabilities (command, mime_type);
 
 				debug (DEBUG_INFO, "command->type: %d ", command->type);
 

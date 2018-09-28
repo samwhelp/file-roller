@@ -140,6 +140,11 @@
       <summary>Encrypt the archive header</summary>
       <description>Whether to encrypt the archive header.  If the header is encrypted the password will be required to list the archive content as well.</description>
     </key>
+    <key name="force-use-unar" type="b">
+      <default>false</default>
+      <summary>Force use unar.</summary>
+      <description>Force use unar to open zip archives.</description>
+    </key>
   </schema>
 
   <schema id="org.gnome.FileRoller.Dialogs" path="/org/gnome/file-roller/dialogs/">
