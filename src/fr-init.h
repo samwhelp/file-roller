@@ -69,5 +69,6 @@ int          get_mime_type_index                     (const char    *mime_type);
 void         sort_mime_types_by_extension            (int           *a);
 void         initialize_data                         (void);
 void         release_data                            (void);
+gboolean     force_use_unar                          (void);
 
 #endif /* FR_INIT_H */
